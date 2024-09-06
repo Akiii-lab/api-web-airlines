@@ -40,7 +40,7 @@ public class Pasajero {
     @Column(nullable = false)
     private Set<Integer> asientos;
 
-    @ManyToOne 
+    @ManyToOne
     @JoinColumn (name = "id_reserva")
-    private Reserva reserva;
+    private Reserva reserva; 
 }

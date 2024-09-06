@@ -36,5 +36,5 @@ public class Aerolinea {
     private String pais;
 
     @OneToMany (mappedBy = "aerolinea")
-    private Set<Vuelo> vuelos;
+    private Set<Vuelo> vuelos; 
 }

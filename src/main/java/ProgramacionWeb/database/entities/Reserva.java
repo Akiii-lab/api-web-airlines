@@ -56,6 +56,6 @@ public class Reserva {
 
     public void addVuelo(Vuelo vuelo) {
         this.vuelos.add(vuelo);
-    }
+    } 
 
 }

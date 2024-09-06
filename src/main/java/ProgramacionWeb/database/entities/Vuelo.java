@@ -55,6 +55,10 @@ public class Vuelo {
     @JoinColumn (name = "id_aerolinea")
     private Aerolinea aerolinea;
 
+    @ManyToOne
+    @JoinColumn (name = "id_aeropuerto")
+    private Aeropuerto aeropuerto;
+
     @ManyToMany (mappedBy = "vuelos")
-    private Set<Reserva> reservas;
+    private Set<Reserva> reservas; 
 }
