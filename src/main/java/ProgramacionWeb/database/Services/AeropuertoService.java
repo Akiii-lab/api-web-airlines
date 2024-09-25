@@ -1,5 +1,7 @@
 package ProgramacionWeb.database.Services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,22 +23,22 @@ public class AeropuertoService{
     }
 
     //get all
-    public Iterable<Aeropuerto> findAll() {
+    public List<Aeropuerto> findAll() {
         return aeropuertoRepository.findAll();
     }
 
     //save
-    public void save(Aeropuerto aeropuerto) {
-        aeropuertoRepository.save(aeropuerto);
+    public Aeropuerto save(Aeropuerto aeropuerto) {
+        return aeropuertoRepository.save(aeropuerto);
     }
 
-    //delete
-    public void delete(Aeropuerto aeropuerto) { 
-        aeropuertoRepository.delete(aeropuerto);
-    }
 
     //delete by id
-    public void deleteById(long id) {
+    public Boolean deleteById(long id) {
+        if( aeropuertoRepository.findById(id) == null){
+            return false;
+        }
         aeropuertoRepository.deleteById(id);
+        return true;
     }
 }

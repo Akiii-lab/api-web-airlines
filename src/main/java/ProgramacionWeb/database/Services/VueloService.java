@@ -1,5 +1,7 @@
 package ProgramacionWeb.database.Services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,22 +23,22 @@ public class VueloService {
     }
 
     //get all
-    public Iterable<Vuelo> findAll() {
+    public List<Vuelo> findAll() {
         return vueloRepository.findAll();
     }
 
     //save
-    public void save(Vuelo vuelo) { 
-        vueloRepository.save(vuelo);
+    public Vuelo save(Vuelo vuelo) { 
+        return vueloRepository.save(vuelo);
     }
 
-    //delete
-    public void delete(Vuelo vuelo) {
-        vueloRepository.delete(vuelo);
-    }
 
     //delete by id
-    public void deleteById(long id) {
+    public Boolean deleteById(long id) {
+        if(vueloRepository.findById(id) == null){
+            return false;
+        }
         vueloRepository.deleteById(id);
+        return true;
     }
 }
