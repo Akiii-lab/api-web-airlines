@@ -5,7 +5,7 @@ import java.util.Set;
 import lombok.Data;
 
 @Data
-public class AreolineaDTO {
+public class AerolineaDTO {
     private Long id_aerolinea;
     private String nombre;
     private String pais;
