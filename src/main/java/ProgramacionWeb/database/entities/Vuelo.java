@@ -1,5 +1,8 @@
 package ProgramacionWeb.database.entities;
 
+
+import java.sql.Date;
+import java.sql.Time;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -37,16 +40,16 @@ public class Vuelo {
     private String destino;
 
     @Column(nullable = false)
-    private String fecha_salida;
+    private Date fecha_salida;
 
     @Column(nullable = false)
-    private float hora_salida;
+    private Time hora_salida;
 
     @Column(nullable = false)
     private float precio;
 
     @Column(nullable = false)
-    private int duracion;
+    private Time duracion;
 
     @Column(nullable = false)
     private int capacidad;
