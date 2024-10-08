@@ -13,10 +13,10 @@ public interface PasajeroMapper {
     PasajeroMapper INSTANCE = Mappers.getMapper(PasajeroMapper.class);
 
     // PASAJERO DTO -> PASAJERO
-    @Mapping(source = "id", target = "id_pasajero")
+    @Mapping(source = "id_pasajero", target = "id")
     Pasajero pasajeroDTOToPasajero(PasajeroDTO pasajeroDTO);
 
     // PASAJERO -> PASAJERO DTO
-    @Mapping(source = "id_pasajero", target = "id")
+    @Mapping(source = "id", target = "id_pasajero")
     PasajeroDTO pasajeroToPasajeroDTO(Pasajero pasajero);
 }

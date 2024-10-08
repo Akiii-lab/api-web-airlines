@@ -13,10 +13,10 @@ public interface ClienteMapper {
     ClienteMapper INSTANCE = Mappers.getMapper(ClienteMapper.class);
 
     // CLIENTE DTO -> CLIENTE
-    @Mapping(source = "id", target = "id_cliente")
+    @Mapping(source = "id_cliente", target = "id")
     Cliente clienteDTOToCliente(ClienteDTO clienteDTO);
 
     // CLIENTE -> CLIENTE DTO
-    @Mapping(source = "id_cliente", target = "id") 
+    @Mapping(source = "id", target = "id_cliente") 
     ClienteDTO clienteToClienteDTO(Cliente cliente);
 }
