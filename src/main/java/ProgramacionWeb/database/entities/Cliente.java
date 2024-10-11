@@ -1,5 +1,6 @@
 package ProgramacionWeb.database.entities;
 
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -45,6 +46,6 @@ public class Cliente {
     private String direccion;
 
     @OneToMany
-    private Set<Reserva> reservas; 
+    private List<Long> id_reservasf; 
 
 }

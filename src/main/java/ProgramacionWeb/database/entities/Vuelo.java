@@ -60,8 +60,12 @@ public class Vuelo {
 
     @ManyToOne
     @JoinColumn (name = "id_aeropuerto")
-    private Aeropuerto aeropuerto;
+    private Long id_aeropuerto_salida;
+
+    @ManyToOne
+    @JoinColumn (name = "id_aeropuerto")
+    private Long id_aeropuerto_llegada;
 
     @ManyToMany (mappedBy = "vuelos")
-    private Set<Reserva> reservas; 
+    private Long id_reservasf; 
 }

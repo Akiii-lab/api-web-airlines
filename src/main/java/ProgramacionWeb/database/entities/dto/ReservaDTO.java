@@ -1,5 +1,6 @@
 package ProgramacionWeb.database.entities.dto;
 
+import java.util.List;
 import java.util.Set;
 
 import lombok.Data;
@@ -12,7 +13,7 @@ public class ReservaDTO {
     private ClienteDTO cliente;
     private int num_pasajeros;
     private Set<PasajeroDTO> pasajeros;
-    private Set<VueloDTO> vuelos;
+    private List<VueloDTO> vuelos;
 
 }
 /*

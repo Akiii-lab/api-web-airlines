@@ -1,5 +1,6 @@
 package ProgramacionWeb.database.entities.dto;
 
+import java.util.List;
 import java.util.Set;
 
 import lombok.Data;
@@ -14,7 +15,7 @@ public class ClienteDTO {
     private int telefono;
     private String correo;
     private String direccion;
-    private Set<ReservaDTO> reservas;
+    private List<Long> id_reservasf;
 }
 
 /*
