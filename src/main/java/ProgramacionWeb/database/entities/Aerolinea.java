@@ -1,6 +1,6 @@
 package ProgramacionWeb.database.entities;
 
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,5 +36,5 @@ public class Aerolinea {
     private String pais;
 
     @OneToMany (mappedBy = "aerolinea")
-    private Set<Vuelo> vuelos; 
+    private List<Long> vuelos; 
 }

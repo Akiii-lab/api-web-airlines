@@ -1,6 +1,7 @@
 package ProgramacionWeb.database.entities.dto;
 
-import java.util.Set;
+import java.util.List;
+
 
 import lombok.Data;
 
@@ -11,7 +12,7 @@ public class AeropuertoDTO {
     private String nombre;
     private String ciudad;
     private String pais;
-    private Set<VueloDTO> vuelos;
+    private List<Long> vuelos;
 }
 
 /*

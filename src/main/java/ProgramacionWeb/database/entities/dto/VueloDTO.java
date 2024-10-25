@@ -18,6 +18,7 @@ public class VueloDTO {
     private int capacidad;
     private Long id_aeropuerto_salida;
     private Long id_aeropuerto_llegada;
+    private Long id_aerolineaf;
     private Long id_reservasf;
 }
 

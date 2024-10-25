@@ -1,6 +1,7 @@
 package ProgramacionWeb.database.entities.dto;
 
-import java.util.Set;
+import java.util.List;
+
 
 import lombok.Data;
 
@@ -10,7 +11,7 @@ public class AerolineaDTO {
     private String nombre;
     private String pais;
     private int codigo_arolinea;
-    private Set<VueloDTO> vuelos;
+    private List<Long> vuelos;
 
 }
 

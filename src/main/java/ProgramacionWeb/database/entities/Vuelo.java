@@ -3,7 +3,6 @@ package ProgramacionWeb.database.entities;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -56,7 +55,7 @@ public class Vuelo {
 
     @ManyToOne
     @JoinColumn (name = "id_aerolinea")
-    private Aerolinea aerolinea;
+    private Long id_aerolineaf;
 
     @ManyToOne
     @JoinColumn (name = "id_aeropuerto")
