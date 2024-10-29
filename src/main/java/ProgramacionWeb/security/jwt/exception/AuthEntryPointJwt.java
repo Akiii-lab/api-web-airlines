@@ -13,6 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
     }
 }

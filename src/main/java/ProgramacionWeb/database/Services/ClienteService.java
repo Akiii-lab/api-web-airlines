@@ -1,6 +1,7 @@
 package ProgramacionWeb.database.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,11 @@ public class ClienteService {
     //get by id
     public Cliente findById(long id) {
         return clienteRepository.findById(id);
+    }
+
+    //get by email
+    public Optional<Cliente> findByEmail(String email) {
+        return clienteRepository.findByEmail(email);
     }
 
     //get all

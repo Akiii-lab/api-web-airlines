@@ -42,9 +42,15 @@ public class Cliente {
     private String correo;
 
     @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
     private String direccion;
 
+    @Column(nullable = false)
+    private String role;
+
     @OneToMany
-    private List<Long> id_reservasf; 
+    private List<Long> id_reservasf;
 
 }
