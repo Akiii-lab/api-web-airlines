@@ -11,9 +11,6 @@ import ProgramacionWeb.database.entities.Cliente;
 @RepositoryRestResource
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-    
-    @Query("SELECT c FROM Cliente c WHERE c.id = ?1")
-    Cliente findById(long id);
 
     @Query("SELECT c FROM Cliente c WHERE c.email = ?1")
     Optional<Cliente> findByEmail(String email);

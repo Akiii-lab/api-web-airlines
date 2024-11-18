@@ -1,6 +1,7 @@
 package ProgramacionWeb.Controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class PasajeroController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Pasajero> findById(@PathVariable long id) {
+    public ResponseEntity<Optional<Pasajero>> findById(@PathVariable long id) {
         return ResponseEntity.ok(pasajeroService.findById(id));
     }
 

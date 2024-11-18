@@ -1,6 +1,8 @@
 package ProgramacionWeb.database.Services;
 
+import java.lang.foreign.Linker.Option;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ public class ReservaService {
     ReservaRepository reservaRepository;
 
     //get by id
-    public Reserva findById(long id) {
+    public Optional<Reserva> findById(long id) {
         return reservaRepository.findById(id);
     }
 
@@ -39,5 +41,10 @@ public class ReservaService {
         }
         reservaRepository.deleteById(id);
         return true;
+    }
+
+    //find by id cliente
+    public List<Reserva> findByClienteId(Long id) {
+        return reservaRepository.findByClienteId(id);
     }
 }

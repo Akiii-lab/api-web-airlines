@@ -1,6 +1,7 @@
 package ProgramacionWeb.Controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class ReservaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Reserva> findById(@PathVariable long id) {
+    public ResponseEntity<Optional<Reserva>> findById(@PathVariable long id) {
         return ResponseEntity.ok(reservaService.findById(id));
     }
     

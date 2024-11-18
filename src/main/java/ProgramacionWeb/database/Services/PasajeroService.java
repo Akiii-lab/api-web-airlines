@@ -1,6 +1,7 @@
 package ProgramacionWeb.database.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class PasajeroService {
     private PasajeroRepository pasajeroRepository;
 
     //get by id
-    public Pasajero findById(long id) {
+    public Optional<Pasajero> findById(long id) {
         return pasajeroRepository.findById(id);
     }
 

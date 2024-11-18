@@ -14,6 +14,8 @@ public class ClienteDTO {
     private String correo;
     private String direccion;
     private List<Long> id_reservasf;
+    private String role;
+    private String password;
 }
 
 /*
