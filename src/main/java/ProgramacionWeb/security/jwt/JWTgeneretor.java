@@ -5,8 +5,9 @@ import java.util.Date;
 
 import javax.crypto.SecretKey;
 
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
+
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Value;
 import ProgramacionWeb.security.jwt.utils.Security;
@@ -35,7 +36,7 @@ public class JWTgeneretor {
 
     public String generateToken(Authentication authentication) {
 
-        String username = authentication.getUsername();
+        String username = authentication.getName();
         Date currentDate = new Date();
         Date expireDate = new Date(currentDate.getTime() + Security.JWT_Expiration);
 

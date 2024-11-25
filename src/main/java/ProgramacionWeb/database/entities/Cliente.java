@@ -51,6 +51,6 @@ public class Cliente {
     private String role;
 
     @OneToMany
-    private List<Long> id_reservasf;
+    private List<Reserva> reservas;
 
 }

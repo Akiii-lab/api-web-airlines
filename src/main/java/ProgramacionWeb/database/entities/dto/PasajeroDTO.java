@@ -12,7 +12,7 @@ public class PasajeroDTO {
     private String apellidos;
     private int telefono;
     private Set<Integer> asientos;
-    private Long id_reservaf;
+    private ReservaDTO reserva;
 }
 
 /*

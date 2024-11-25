@@ -12,7 +12,8 @@ public class AeropuertoDTO {
     private String nombre;
     private String ciudad;
     private String pais;
-    private List<Long> vuelos;
+    private List<VueloDTO> vueloLlegada;
+    private List<VueloDTO> vueloSalida;
 }
 
 /*

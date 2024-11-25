@@ -16,10 +16,9 @@ public class VueloDTO {
     private float precio;
     private Time duracion;
     private int capacidad;
-    private Long id_aeropuerto_salida;
-    private Long id_aeropuerto_llegada;
-    private Long id_aerolineaf;
-    private Long id_reservasf;
+    private AerolineaDTO aerolinea;
+    private AeropuertoDTO aeropuertoSalida;
+    private AeropuertoDTO aeropuertoLlegada;
 }
 
 /*
@@ -32,6 +31,26 @@ public class VueloDTO {
         "hora_salida": "10:00:00",
         "precio": 100.0,
         "duracion": "01:00:00",
-        "capacidad": 100
+        "capacidad": 100,
+        "aerolinea": {
+            "id_aerolinea": 1,
+            "nombre": "Aerolinea 1",
+            "pais": "Argentina",
+            "vuelos": []
+        },
+        "aeropuerto_salida": {
+            "id_aeropuerto": 1,
+            "nombre": "Aeropuerto de Cordoba",
+            "ciudad": "Cordoba",
+            "pais": "Argentina",
+            "vuelos": []
+        },
+        "aeropuerto_llegada": {
+            "id_aeropuerto": 2,
+            "nombre": "Aeropuerto de Buenos Aires",
+            "ciudad": "Buenos Aires",
+            "pais": "Argentina",
+            "vuelos": []
+        }
     }
  */

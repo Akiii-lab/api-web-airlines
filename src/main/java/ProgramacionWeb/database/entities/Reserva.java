@@ -32,19 +32,19 @@ public class Reserva {
     @GeneratedValue
     private Long id;
 
-    @OneToMany
-    private Set<Pasajero> pasajeros;
-    
     @Column(nullable = false)
     private String fecha;
-
-    @Column(nullable = false)
-    private int num_pasajeros;
 
     @ManyToOne
     @JoinColumn (name = "id_cliente")
     private Cliente cliente;
-    
+
+    @Column(nullable = false)
+    private int num_pasajeros;
+
+    @OneToMany
+    private Set<Pasajero> pasajeros;
+
     @ManyToMany
     @JoinTable(
         name = "rutas",

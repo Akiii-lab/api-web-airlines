@@ -36,6 +36,9 @@ public class Aeropuerto {
     @Column(nullable = false)
     private String pais;
 
-    @OneToMany (mappedBy = "aeropuerto")
-    private List<Long> vuelos;
+    @OneToMany (mappedBy = "aeropuertoSalida")
+    private List<Vuelo> vuelosSalidas;
+
+    @OneToMany (mappedBy = "aeropuertoLlegada")
+    private List<Vuelo> vuelosLlegadas;
 }

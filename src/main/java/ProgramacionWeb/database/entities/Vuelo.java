@@ -3,6 +3,7 @@ package ProgramacionWeb.database.entities;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -54,17 +55,17 @@ public class Vuelo {
     private int capacidad;
 
     @ManyToOne
-    @JoinColumn (name = "id_aerolinea")
-    private Long id_aerolineaf;
+    @JoinColumn(name = "aerolinea")
+    private Aerolinea aerolinea; 
 
     @ManyToOne
-    @JoinColumn (name = "id_aeropuerto")
-    private Long id_aeropuerto_salida;
+    @JoinColumn(name = "aeropuertoSalida")
+    private Aeropuerto aeropuertoSalida; 
 
     @ManyToOne
-    @JoinColumn (name = "id_aeropuerto")
-    private Long id_aeropuerto_llegada;
+    @JoinColumn(name = "aeropuertoLlegada")
+    private Aeropuerto aeropuertoLlegada; 
 
-    @ManyToMany (mappedBy = "vuelos")
-    private Long id_reservasf; 
+    @ManyToMany(mappedBy = "vuelos")
+    private List<Reserva> reservas;
 }

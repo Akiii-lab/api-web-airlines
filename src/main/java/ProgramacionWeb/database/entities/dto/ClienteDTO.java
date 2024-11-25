@@ -13,9 +13,9 @@ public class ClienteDTO {
     private int telefono;
     private String correo;
     private String direccion;
-    private List<Long> id_reservasf;
     private String role;
     private String password;
+    private List<ReservaDTO> reservas;
 }
 
 /*
@@ -28,6 +28,8 @@ public class ClienteDTO {
  *      "telefono": 123456789,
  *      "correo": "jdoe@doe",
  *      "direccion": "Calle 123",
- *      "reservas": [id_reserva1, id_reserva2]
+ *      "role": "user",
+ *      "password": "password"
+ *      "reservas": []  
  * }
  */

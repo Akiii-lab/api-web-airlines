@@ -14,9 +14,37 @@ public interface PasajeroMapper {
 
     // PASAJERO DTO -> PASAJERO
     @Mapping(source = "id_pasajero", target = "id")
-    Pasajero pasajeroDTOToPasajero(PasajeroDTO pasajeroDTO);
+    default
+    Pasajero pasajeroDTOToPasajero(PasajeroDTO pasajeroDTO){
+        if(pasajeroDTO == null){
+            return null;
+        }
+
+        Pasajero pasajero = new Pasajero();
+        pasajero.setId(pasajeroDTO.getId_pasajero());
+        pasajero.setNombres(pasajeroDTO.getNombres());
+        pasajero.setApellidos(pasajeroDTO.getApellidos());
+        pasajero.setTelefono(pasajeroDTO.getTelefono());
+        pasajero.setAsientos(pasajeroDTO.getAsientos());
+        pasajero.setReserva(ReservaMapper.INSTANCE.reservaDTOToReserva(pasajeroDTO.getReserva()));
+        return pasajero;
+    }
 
     // PASAJERO -> PASAJERO DTO
     @Mapping(source = "id", target = "id_pasajero")
-    PasajeroDTO pasajeroToPasajeroDTO(Pasajero pasajero);
+    default
+    PasajeroDTO pasajeroToPasajeroDTO(Pasajero pasajero){
+        if(pasajero == null){
+            return null;
+        }
+
+        PasajeroDTO pasajeroDTO = new PasajeroDTO();
+        pasajeroDTO.setId_pasajero(pasajero.getId());
+        pasajeroDTO.setNombres(pasajero.getNombres());
+        pasajeroDTO.setApellidos(pasajero.getApellidos());
+        pasajeroDTO.setTelefono(pasajero.getTelefono());
+        pasajeroDTO.setAsientos(pasajero.getAsientos());
+        pasajeroDTO.setReserva(ReservaMapper.INSTANCE.reservaToReservaDTO(pasajero.getReserva()));
+        return pasajeroDTO;
+    }
 }

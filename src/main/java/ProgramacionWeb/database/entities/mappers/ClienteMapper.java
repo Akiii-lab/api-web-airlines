@@ -5,7 +5,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import ProgramacionWeb.database.entities.Cliente;
+import ProgramacionWeb.database.entities.Reserva;
 import ProgramacionWeb.database.entities.dto.ClienteDTO;
+import ProgramacionWeb.database.entities.dto.ReservaDTO;
 
 @Mapper
 public interface ClienteMapper {
@@ -14,9 +16,43 @@ public interface ClienteMapper {
 
     // CLIENTE DTO -> CLIENTE
     @Mapping(source = "id_cliente", target = "id")
-    Cliente clienteDTOToCliente(ClienteDTO clienteDTO);
+    default
+    Cliente clienteDTOToCliente(ClienteDTO clienteDTO){
+        if(clienteDTO == null) return null;
+
+        Cliente cliente = new Cliente();
+        cliente.setId(clienteDTO.getId_cliente());
+        cliente.setNombres(clienteDTO.getNombres());
+        cliente.setApellidos(clienteDTO.getApellidos());
+        cliente.setDni(clienteDTO.getDni());
+        cliente.setTelefono(clienteDTO.getTelefono());
+        cliente.setCorreo(clienteDTO.getCorreo());
+        cliente.setPassword(clienteDTO.getPassword());
+        cliente.setRole(clienteDTO.getRole());
+        for(ReservaDTO reservaDTO : clienteDTO.getReservas()){
+            cliente.getReservas().add(ReservaMapper.INSTANCE.reservaDTOToReserva(reservaDTO));
+        }
+        return cliente;
+    }
 
     // CLIENTE -> CLIENTE DTO
     @Mapping(source = "id", target = "id_cliente") 
-    ClienteDTO clienteToClienteDTO(Cliente cliente);
+    default
+    ClienteDTO clienteToClienteDTO(Cliente cliente){
+        if(cliente == null) return null;
+
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setId_cliente(cliente.getId());
+        clienteDTO.setNombres(cliente.getNombres());
+        clienteDTO.setApellidos(cliente.getApellidos());
+        clienteDTO.setDni(cliente.getDni());
+        clienteDTO.setTelefono(cliente.getTelefono());
+        clienteDTO.setCorreo(cliente.getCorreo());
+        clienteDTO.setPassword(cliente.getPassword());
+        clienteDTO.setRole(cliente.getRole());
+        for(Reserva reserva : cliente.getReservas()){
+            clienteDTO.getReservas().add(ReservaMapper.INSTANCE.reservaToReservaDTO(reserva));
+        }
+        return clienteDTO;
+    }
 }

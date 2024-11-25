@@ -1,11 +1,14 @@
 package ProgramacionWeb.database.Services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ProgramacionWeb.database.entities.Aeropuerto;
+import ProgramacionWeb.database.entities.dto.AeropuertoDTO;
+import ProgramacionWeb.database.entities.mappers.AeropuertoMapper;
 import ProgramacionWeb.database.repositories.AeropuertoRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,24 +21,36 @@ public class AeropuertoService{
     private AeropuertoRepository aeropuertoRepository;
 
     //get by id
-    public Aeropuerto findById(long id) {
-        return aeropuertoRepository.findById(id);
+    public AeropuertoDTO findById(Long id) {
+        if(id == null){
+            return null;
+        }
+        Aeropuerto aeropuerto = aeropuertoRepository.findById(id).get();
+        return AeropuertoMapper.INSTANCE.aeropuertoToAeropuertoDTO(aeropuerto);
     }
 
     //get all
-    public List<Aeropuerto> findAll() {
-        return aeropuertoRepository.findAll();
+    public List<AeropuertoDTO> findAll() {
+        List<AeropuertoDTO> aeropuertosDTO = new ArrayList<>();
+        for(Aeropuerto aeropuerto : aeropuertoRepository.findAll()) {
+            aeropuertosDTO.add(AeropuertoMapper.INSTANCE.aeropuertoToAeropuertoDTO(aeropuerto));
+        }
+        return aeropuertosDTO;
     }
 
     //save
-    public Aeropuerto save(Aeropuerto aeropuerto) {
-        return aeropuertoRepository.save(aeropuerto);
+    public AeropuertoDTO save(Aeropuerto aeropuerto) {
+        if(aeropuerto == null){
+            return null;
+        }
+        Aeropuerto savedAeropuerto = aeropuertoRepository.save(aeropuerto);
+        return AeropuertoMapper.INSTANCE.aeropuertoToAeropuertoDTO(savedAeropuerto);
     }
 
 
     //delete by id
-    public Boolean deleteById(long id) {
-        if( aeropuertoRepository.findById(id) == null){
+    public Boolean deleteById(Long id) {
+        if( id == null){
             return false;
         }
         aeropuertoRepository.deleteById(id);

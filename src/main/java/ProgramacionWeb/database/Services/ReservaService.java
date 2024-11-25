@@ -1,13 +1,14 @@
 package ProgramacionWeb.database.Services;
 
-import java.lang.foreign.Linker.Option;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ProgramacionWeb.database.entities.Reserva;
+import ProgramacionWeb.database.entities.dto.ReservaDTO;
+import ProgramacionWeb.database.entities.mappers.ReservaMapper;
 import ProgramacionWeb.database.repositories.ReservaRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,23 +21,39 @@ public class ReservaService {
     ReservaRepository reservaRepository;
 
     //get by id
-    public Optional<Reserva> findById(long id) {
-        return reservaRepository.findById(id);
+    public ReservaDTO findById(Long id) {
+        if(id == null) {
+            return null;
+        }
+        Reserva reserva = reservaRepository.findById(id).get();
+        return ReservaMapper.INSTANCE.reservaToReservaDTO(reserva);
     }
 
     //get all
-    public List<Reserva> findAll() {
-        return reservaRepository.findAll();
+    public List<ReservaDTO> findAll() {
+        List<Reserva> reservas = reservaRepository.findAll();
+        if(reservas.isEmpty()) {
+            return null;
+        }
+        List<ReservaDTO> reservasDTO = new ArrayList<>();
+        for(Reserva reserva : reservas) {
+            reservasDTO.add(ReservaMapper.INSTANCE.reservaToReservaDTO(reserva));
+        }
+        return reservasDTO;
     }
 
     //save
-    public Reserva save(Reserva reserva) {
-        return reservaRepository.save(reserva);
+    public ReservaDTO save(ReservaDTO reserva) {
+        if(reserva == null) {
+            return null;
+        }
+        Reserva reservaSaved = reservaRepository.save(ReservaMapper.INSTANCE.reservaDTOToReserva(reserva));
+        return ReservaMapper.INSTANCE.reservaToReservaDTO(reservaSaved);
     }
 
     //delete by id
-    public Boolean deleteById(long id) {
-        if (reservaRepository.findById(id) == null) {
+    public Boolean deleteById(Long id) {
+        if(id == null) {
             return false;
         }
         reservaRepository.deleteById(id);
@@ -44,7 +61,12 @@ public class ReservaService {
     }
 
     //find by id cliente
-    public List<Reserva> findByClienteId(Long id) {
-        return reservaRepository.findByClienteId(id);
+    public List<ReservaDTO> findByClienteId(Long id) {
+        List<Reserva> reservas = reservaRepository.findByClienteId(id);
+        List<ReservaDTO> reservasDTO = new ArrayList<>();
+        for(Reserva reserva : reservas) {
+            reservasDTO.add(ReservaMapper.INSTANCE.reservaToReservaDTO(reserva));
+        }
+        return reservasDTO;
     }
 }

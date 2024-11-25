@@ -1,5 +1,6 @@
 package ProgramacionWeb.Controllers;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +9,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ProgramacionWeb.database.Services.AerolineaService;
-import ProgramacionWeb.database.entities.Aerolinea;
+import ProgramacionWeb.database.entities.dto.AerolineaDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -25,25 +27,59 @@ public class AerolineaController {
 
     @GetMapping()
     //get all
-    public ResponseEntity<List<Aerolinea>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<HashMap<String, Object>> findAll() {
+        HashMap <String, Object> response = new HashMap<>();
+        List<AerolineaDTO> aerolineas = service.findAll();
+        if(aerolineas.isEmpty()) {
+            response.put("Error", "No se encontraron Aerolineas");
+            return ResponseEntity.notFound().build();
+        }else{
+            for(AerolineaDTO aerolinea : aerolineas) {
+                response.put("Aerolineas", aerolinea);
+            }
+            return ResponseEntity.ok(response);
+        }
     }
     
     //get by id
     @GetMapping("/{id}")
-    public ResponseEntity<Aerolinea> findById(@PathVariable long id) {
-        return ResponseEntity.ok(service.findById(id));
+    public ResponseEntity<HashMap<String, Object>> findById(@PathVariable Long id) {
+        HashMap <String, Object> response = new HashMap<>();
+        AerolineaDTO aerolineaDTO = service.findById(id);
+        if(aerolineaDTO == null) {
+            response.put("Error", "No se encontro la Aerolinea con id: " + id);
+            return ResponseEntity.notFound().build();
+        }else{
+            response.put("Aerolinea", aerolineaDTO);
+            return ResponseEntity.ok(response);
+        }
     }
 
     //save
-    @PostMapping()
-    public ResponseEntity<Aerolinea> save(Aerolinea aerolinea) {
-        return ResponseEntity.ok(service.save(aerolinea));
+    @PostMapping("/registrar")
+    public ResponseEntity<HashMap<String, Object>> save(@RequestBody AerolineaDTO aerolineaDTO) {
+        HashMap <String, Object> response = new HashMap<>();
+        if(aerolineaDTO == null) {
+            response.put("Error", "No se pudo registrar la Aerolinea");
+            return ResponseEntity.badRequest().build();
+        }else{
+            AerolineaDTO aerolineadto = service.save(aerolineaDTO);
+            response.put("Aerolinea", aerolineadto);
+            return ResponseEntity.ok(response);
+        }
     }
 
     //delete by id
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteById(@PathVariable long id) {
-        return ResponseEntity.ok(service.deleteById(id));
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<HashMap<String, Object>> deleteById(@PathVariable Long id) {
+        Boolean deleted = service.deleteById(id);
+        HashMap <String, Object> response = new HashMap<>();
+        if(deleted) {
+            response.put("Aerolinea", "Se elimino la Aerolinea con id: " + id);
+            return ResponseEntity.ok(response);
+        }else{
+            response.put("Error", "No se pudo eliminar la Aerolinea con id: " + id);
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

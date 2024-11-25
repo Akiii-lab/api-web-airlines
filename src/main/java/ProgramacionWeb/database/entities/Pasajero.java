@@ -42,5 +42,5 @@ public class Pasajero {
 
     @ManyToOne
     @JoinColumn (name = "id_reserva")
-    private Long id_reservaf; 
+    private Reserva reserva; 
 }

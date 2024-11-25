@@ -9,10 +9,9 @@ import lombok.Data;
 public class AerolineaDTO {
     private Long id_aerolinea;
     private String nombre;
-    private String pais;
     private int codigo_arolinea;
-    private List<Long> vuelos;
-
+    private String pais;
+    private List<VueloDTO> vuelos;
 }
 
 /* 
