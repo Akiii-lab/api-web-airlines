@@ -23,7 +23,6 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter{
     @Autowired
     private ClientUserDetailsService clientUserDetailsService;
 
-    @SuppressWarnings("null")
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = getJWTFromRequest(request);

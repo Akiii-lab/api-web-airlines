@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -16,10 +17,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Builder
 @Data
+@Table(name = "clientes")
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "clientes")
-
 public class Cliente {
 
     @Id
@@ -50,7 +50,7 @@ public class Cliente {
     @Column(nullable = false)
     private String role;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Reserva> reservas;
 
 }

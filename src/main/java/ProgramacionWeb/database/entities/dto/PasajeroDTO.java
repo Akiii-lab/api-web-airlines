@@ -22,8 +22,8 @@ public class PasajeroDTO {
  *      "nombres": "John",
  *      "apellidos": "Doe",
  *      "telefono": 123456789,
- *      "asientos": [1, 2],
- *      "reserva": id_reserva1,
- *      }
+ *      "asientos": [],
+ *      "reserva": []
+ *      
  * }
  */

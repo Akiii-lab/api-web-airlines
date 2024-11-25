@@ -41,7 +41,7 @@ public class ClienteController {
     }
 
     //get by id
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<HashMap<String, Object>> findById(@PathVariable Long id) {
         HashMap <String, Object> response = new HashMap<>();
         ClienteDTO cliente = clienteService.findById(id);
@@ -69,7 +69,7 @@ public class ClienteController {
     }
 
     //get by email
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     public ResponseEntity<HashMap<String, Object>> findByEmail(@PathVariable String email) {
         HashMap <String, Object> response = new HashMap<>();
         ClienteDTO cliente = clienteService.findByEmail(email);

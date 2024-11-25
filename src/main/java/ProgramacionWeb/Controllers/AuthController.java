@@ -51,11 +51,11 @@ public class AuthController {
     }
 
     @PostMapping("/cliente/login")
-    public ResponseEntity<HashMap<String, Object>> authenticateClient(@RequestBody ClienteDTO clienteDTO) {
+    public ResponseEntity<HashMap<String, Object>> authenticateClient(@RequestBody HashMap<String, Object> authdata) {
         
-        ClienteDTO existingClient = clienteService.findByEmail(clienteDTO.getCorreo());
+        ClienteDTO existingClient = clienteService.findByEmail(authdata.get("correo").toString());
         
-        if(existingClient == null || !passwordEncoder.matches(clienteDTO.getPassword(), existingClient.getPassword())) {
+        if(existingClient == null || !passwordEncoder.matches(authdata.get("password").toString(), existingClient.getPassword())) {
             HashMap<String, Object> errorResponse = new HashMap<>();
             errorResponse.put("Error", "Credenciales incorrectas");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
