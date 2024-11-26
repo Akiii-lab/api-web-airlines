@@ -2,6 +2,7 @@ package ProgramacionWeb.database.entities.dto;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class VueloDTO {
     private AerolineaDTO aerolinea;
     private AeropuertoDTO aeropuertoSalida;
     private AeropuertoDTO aeropuertoLlegada;
+    private List<ReservaDTO> reservas;
 }
 
 /*

@@ -1,5 +1,6 @@
 package ProgramacionWeb.Controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -63,6 +64,9 @@ public class AerolineaController {
             response.put("Error", "No se pudo registrar la Aerolinea");
             return ResponseEntity.badRequest().build();
         }else{
+            if(aerolineaDTO.getVuelos() == null) {
+                aerolineaDTO.setVuelos(new ArrayList<>());
+            }
             AerolineaDTO aerolineadto = service.save(aerolineaDTO);
             response.put("Aerolinea", aerolineadto);
             return ResponseEntity.ok(response);

@@ -33,9 +33,7 @@ public class VueloController {
             response.put("Error", "No se encontraron Vuelos");
             return ResponseEntity.notFound().build();
         } else {
-            for (VueloDTO vuelo : vuelos) {
-                response.put("Vuelos", vuelo);
-            }
+            response.put("Vuelos", vuelos);
             return ResponseEntity.ok(response);
         }
     }

@@ -10,6 +10,7 @@ import ProgramacionWeb.database.entities.Vuelo;
 import ProgramacionWeb.database.entities.dto.PasajeroDTO;
 import ProgramacionWeb.database.entities.dto.ReservaDTO;
 import ProgramacionWeb.database.entities.dto.VueloDTO;
+import ProgramacionWeb.database.repositories.AerolineaRepository;
 
 
 @Mapper
@@ -42,7 +43,7 @@ public interface ReservaMapper {
     // RESERVA -> RESERVA DTO
     @Mapping(source = "id_reserva", target = "id")
         default
-        Reserva reservaDTOToReserva(ReservaDTO reservaDTO){
+        Reserva reservaDTOToReserva(ReservaDTO reservaDTO, AerolineaRepository repository){
             if(reservaDTO == null){
                 return null;
             }
@@ -52,12 +53,12 @@ public interface ReservaMapper {
             reserva.setFecha(reservaDTO.getFecha());
             reserva.setNum_pasajeros(reservaDTO.getNum_pasajeros());
             for(PasajeroDTO pasajeroDTO : reservaDTO.getPasajeros()){
-                reserva.getPasajeros().add(PasajeroMapper.INSTANCE.pasajeroDTOToPasajero(pasajeroDTO));
+                reserva.getPasajeros().add(PasajeroMapper.INSTANCE.pasajeroDTOToPasajero(pasajeroDTO, repository));
             }
             for(VueloDTO vueloDTO : reservaDTO.getVuelos()){
-                reserva.getVuelos().add(VueloMapper.INSTANCE.vueloDTOToVuelo(vueloDTO));
+                reserva.getVuelos().add(VueloMapper.INSTANCE.vueloDTOToVuelo(vueloDTO, repository));
             }
-            reserva.setCliente(ClienteMapper.INSTANCE.clienteDTOToCliente(reservaDTO.getCliente()));
+            reserva.setCliente(ClienteMapper.INSTANCE.clienteDTOToCliente(reservaDTO.getCliente(), repository));
             return reserva;
         }
 }

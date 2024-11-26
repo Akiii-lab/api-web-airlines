@@ -8,6 +8,7 @@ import ProgramacionWeb.database.entities.Aeropuerto;
 import ProgramacionWeb.database.entities.Vuelo;
 import ProgramacionWeb.database.entities.dto.AeropuertoDTO;
 import ProgramacionWeb.database.entities.dto.VueloDTO;
+import ProgramacionWeb.database.repositories.AerolineaRepository;
 
 @Mapper
 public interface AeropuertoMapper {
@@ -17,7 +18,7 @@ public interface AeropuertoMapper {
     // AEROPUERTO DTO -> AEROPUERTO
     @Mapping(source = "id_aeropuerto", target = "id")
     default
-    Aeropuerto aeropuertoDTOToAeropuerto(AeropuertoDTO aeropuertoDTO){
+    Aeropuerto aeropuertoDTOToAeropuerto(AeropuertoDTO aeropuertoDTO, AerolineaRepository repository){
         if(aeropuertoDTO == null){
             return null;                
         }
@@ -28,10 +29,10 @@ public interface AeropuertoMapper {
         aeropuerto.setCiudad(aeropuertoDTO.getCiudad());
         aeropuerto.setPais(aeropuertoDTO.getPais());
         for(VueloDTO vueloDTO : aeropuertoDTO.getVueloLlegada()){
-            aeropuerto.getVuelosLlegadas().add(VueloMapper.INSTANCE.vueloDTOToVuelo(vueloDTO));
+            aeropuerto.getVuelosLlegadas().add(VueloMapper.INSTANCE.vueloDTOToVuelo(vueloDTO, repository));
         }
         for(VueloDTO vueloDTO : aeropuertoDTO.getVueloSalida()){
-            aeropuerto.getVuelosSalidas().add(VueloMapper.INSTANCE.vueloDTOToVuelo(vueloDTO));
+            aeropuerto.getVuelosSalidas().add(VueloMapper.INSTANCE.vueloDTOToVuelo(vueloDTO, repository));
         }
 
         return aeropuerto;

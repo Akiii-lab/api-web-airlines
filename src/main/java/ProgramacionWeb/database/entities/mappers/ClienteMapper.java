@@ -1,6 +1,6 @@
 package ProgramacionWeb.database.entities.mappers;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -10,6 +10,7 @@ import ProgramacionWeb.database.entities.Cliente;
 import ProgramacionWeb.database.entities.Reserva;
 import ProgramacionWeb.database.entities.dto.ClienteDTO;
 import ProgramacionWeb.database.entities.dto.ReservaDTO;
+import ProgramacionWeb.database.repositories.AerolineaRepository;
 
 @Mapper
 public interface ClienteMapper {
@@ -18,7 +19,7 @@ public interface ClienteMapper {
 
     // CLIENTE DTO -> CLIENTE
     @Mapping(source = "id_cliente", target = "id")
-    default Cliente clienteDTOToCliente(ClienteDTO clienteDTO) {
+    default Cliente clienteDTOToCliente(ClienteDTO clienteDTO, AerolineaRepository repository) {
         if (clienteDTO == null)
             return null;
 
@@ -34,10 +35,10 @@ public interface ClienteMapper {
         cliente.setRole(clienteDTO.getRole());
         if (clienteDTO.getReservas() != null) {
             for (ReservaDTO reservaDTO : clienteDTO.getReservas()) {
-                cliente.getReservas().add(ReservaMapper.INSTANCE.reservaDTOToReserva(reservaDTO));
+                cliente.getReservas().add(ReservaMapper.INSTANCE.reservaDTOToReserva(reservaDTO, repository));
             }
         } else {
-            cliente.setReservas(List.of());
+            cliente.setReservas(new ArrayList<>());
         }
         return cliente;
     }
@@ -63,7 +64,7 @@ public interface ClienteMapper {
                 clienteDTO.getReservas().add(ReservaMapper.INSTANCE.reservaToReservaDTO(reserva));
             }
         } else {
-            clienteDTO.setReservas(List.of());
+            clienteDTO.setReservas(new ArrayList<>());
         }
         return clienteDTO;
     }

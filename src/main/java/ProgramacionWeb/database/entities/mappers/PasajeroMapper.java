@@ -6,6 +6,7 @@ import org.mapstruct.factory.Mappers;
 
 import ProgramacionWeb.database.entities.Pasajero;
 import ProgramacionWeb.database.entities.dto.PasajeroDTO;
+import ProgramacionWeb.database.repositories.AerolineaRepository;
 
 @Mapper
 public interface PasajeroMapper {
@@ -15,7 +16,7 @@ public interface PasajeroMapper {
     // PASAJERO DTO -> PASAJERO
     @Mapping(source = "id_pasajero", target = "id")
     default
-    Pasajero pasajeroDTOToPasajero(PasajeroDTO pasajeroDTO){
+    Pasajero pasajeroDTOToPasajero(PasajeroDTO pasajeroDTO, AerolineaRepository repository){
         if(pasajeroDTO == null){
             return null;
         }
@@ -26,7 +27,7 @@ public interface PasajeroMapper {
         pasajero.setApellidos(pasajeroDTO.getApellidos());
         pasajero.setTelefono(pasajeroDTO.getTelefono());
         pasajero.setAsientos(pasajeroDTO.getAsientos());
-        pasajero.setReserva(ReservaMapper.INSTANCE.reservaDTOToReserva(pasajeroDTO.getReserva()));
+        pasajero.setReserva(ReservaMapper.INSTANCE.reservaDTOToReserva(pasajeroDTO.getReserva(), repository));
         return pasajero;
     }
 

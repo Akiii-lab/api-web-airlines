@@ -1,23 +1,22 @@
 package ProgramacionWeb.database.entities.mappers;
 
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import ProgramacionWeb.database.entities.Aerolinea;
 import ProgramacionWeb.database.entities.Vuelo;
 import ProgramacionWeb.database.entities.dto.AerolineaDTO;
 import ProgramacionWeb.database.entities.dto.VueloDTO;
+import ProgramacionWeb.database.repositories.AerolineaRepository;
 
 @Mapper 
 public interface AerolineaMapper {
 
     AerolineaMapper INSTANCE = Mappers.getMapper(AerolineaMapper.class);
 
-    @Mapping(source = "id", target = "id_aerolinea")
     default
     AerolineaDTO aerolineaToAerolineaDTO(Aerolinea aerolinea){
         if(aerolinea == null){
@@ -29,19 +28,21 @@ public interface AerolineaMapper {
         aerolineaDTO.setNombre(aerolinea.getNombre());
         aerolineaDTO.setCodigo_arolinea(aerolinea.getCodigo_arolinea());
         aerolineaDTO.setPais(aerolinea.getPais());
-        if(aerolinea.getVuelos() != null){
+        if(aerolinea.getVuelos() != null && !aerolinea.getVuelos().isEmpty()){
+            if(aerolineaDTO.getVuelos() == null) {
+                aerolineaDTO.setVuelos(new ArrayList<>());
+            }
             for(Vuelo vuelo : aerolinea.getVuelos()){
                 aerolineaDTO.getVuelos().add(VueloMapper.INSTANCE.vueloToVueloDTO(vuelo));
             }
         }else{
-            aerolineaDTO.setVuelos(List.of());
+            aerolineaDTO.setVuelos(new ArrayList<>());
         }
         return aerolineaDTO;
     }
     
-    @Mapping(source = "id_aerolinea", target = "id")
     default
-    Aerolinea aerolineaDTOToAerolinea(AerolineaDTO aerolineaDTO){
+    Aerolinea aerolineaDTOToAerolinea(AerolineaDTO aerolineaDTO, AerolineaRepository repository){
         if(aerolineaDTO == null){
             return null;
         }
@@ -52,12 +53,15 @@ public interface AerolineaMapper {
         aerolinea.setCodigo_arolinea(aerolineaDTO.getCodigo_arolinea());
         aerolinea.setPais(aerolineaDTO.getPais());
         if(aerolinea.getVuelos() != null){
+            if(aerolineaDTO.getVuelos() == null) {
+                aerolineaDTO.setVuelos(new ArrayList<>());
+            }
             for(VueloDTO vueloDTO : aerolineaDTO.getVuelos()){
-                aerolinea.getVuelos().add(VueloMapper.INSTANCE.vueloDTOToVuelo(vueloDTO));
+                aerolinea.getVuelos().add(VueloMapper.INSTANCE.vueloDTOToVuelo(vueloDTO, repository));
             }
         }
         else{
-            aerolinea.setVuelos(List.of());
+            aerolinea.setVuelos(new ArrayList<>());
         }
         return aerolinea;
     }

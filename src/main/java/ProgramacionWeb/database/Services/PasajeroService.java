@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ProgramacionWeb.database.entities.Pasajero;
 import ProgramacionWeb.database.entities.dto.PasajeroDTO;
 import ProgramacionWeb.database.entities.mappers.PasajeroMapper;
+import ProgramacionWeb.database.repositories.AerolineaRepository;
 import ProgramacionWeb.database.repositories.PasajeroRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,6 +20,9 @@ public class PasajeroService {
 
     @Autowired
     private PasajeroRepository pasajeroRepository;
+
+    @Autowired
+    private AerolineaRepository aerolineaRepository;
 
     //get by id
     public PasajeroDTO findById(Long id) {
@@ -44,7 +48,7 @@ public class PasajeroService {
         if(pasajero == null) {
             return null;
         }
-        Pasajero pasajeroSaved = pasajeroRepository.save(PasajeroMapper.INSTANCE.pasajeroDTOToPasajero(pasajero));
+        Pasajero pasajeroSaved = pasajeroRepository.save(PasajeroMapper.INSTANCE.pasajeroDTOToPasajero(pasajero, aerolineaRepository));
         return PasajeroMapper.INSTANCE.pasajeroToPasajeroDTO(pasajeroSaved);
     }
 

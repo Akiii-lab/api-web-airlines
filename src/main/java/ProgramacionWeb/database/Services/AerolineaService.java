@@ -45,7 +45,7 @@ public class AerolineaService {
             return null;
         }
 
-        Aerolinea savedAerolinea = aerolineaRepository.save(AerolineaMapper.INSTANCE.aerolineaDTOToAerolinea(aerolinea));
+        Aerolinea savedAerolinea = aerolineaRepository.save(AerolineaMapper.INSTANCE.aerolineaDTOToAerolinea(aerolinea, aerolineaRepository));
 
         return AerolineaMapper.INSTANCE.aerolineaToAerolineaDTO(savedAerolinea);
     }

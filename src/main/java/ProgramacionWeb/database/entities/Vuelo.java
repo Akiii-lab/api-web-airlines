@@ -7,6 +7,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -54,18 +55,18 @@ public class Vuelo {
     @Column(nullable = false)
     private int capacidad;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "aerolinea")
     private Aerolinea aerolinea; 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "aeropuertoSalida")
     private Aeropuerto aeropuertoSalida; 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "aeropuertoLlegada")
     private Aeropuerto aeropuertoLlegada; 
 
-    @ManyToMany(mappedBy = "vuelos")
+    @ManyToMany(mappedBy = "vuelos", fetch = FetchType.EAGER)
     private List<Reserva> reservas;
 }
