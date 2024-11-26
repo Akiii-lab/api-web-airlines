@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ProgramacionWeb.database.Services.ClienteService;
 import ProgramacionWeb.database.entities.dto.ClienteDTO;
 import lombok.extern.slf4j.Slf4j;
+
 
 @RestController
 @Slf4j
@@ -81,4 +84,19 @@ public class ClienteController {
             return ResponseEntity.ok(response);
         }
     }
+
+    @GetMapping("/itself")
+    public ResponseEntity<HashMap<String, Object>> getifself() {
+        Authentication auth = (Authentication) SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String, Object> response = new HashMap<>();
+        ClienteDTO cliente = clienteService.findByEmail(auth.getName());
+        if(cliente == null) {
+            response.put("Error", "No se encontro el Cliente con email: " + auth.getName());
+            return ResponseEntity.notFound().build();
+        }else{
+            response.put("Cliente", cliente);
+            return ResponseEntity.ok(response);
+        }
+    }
+    
 }
