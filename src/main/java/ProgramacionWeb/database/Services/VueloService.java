@@ -1,6 +1,5 @@
 package ProgramacionWeb.database.Services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Service;
 import ProgramacionWeb.database.entities.Vuelo;
 import ProgramacionWeb.database.entities.dto.VueloDTO;
 import ProgramacionWeb.database.entities.mappers.VueloMapper;
-import ProgramacionWeb.database.repositories.AerolineaRepository;
+import ProgramacionWeb.database.entities.tosavedto.VueloToSDTO;
 import ProgramacionWeb.database.repositories.VueloRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,9 +19,6 @@ public class VueloService {
 
     @Autowired
     private VueloRepository vueloRepository;
-
-    @Autowired
-    private AerolineaRepository aerolineaRepository;
 
     //get by id
     public VueloDTO findById(Long id) {
@@ -40,11 +36,11 @@ public class VueloService {
     }
 
     //save
-    public VueloDTO save(VueloDTO vuelo) { 
+    public VueloDTO save(VueloToSDTO vuelo) { 
         if(vuelo == null) {
             return null;
         }
-        Vuelo vuelotoSave = VueloMapper.INSTANCE.vueloDTOToVuelo(vuelo, aerolineaRepository);
+        Vuelo vuelotoSave = VueloMapper.INSTANCE.VueloToSDTOToVuelo(vuelo);
         if(vuelotoSave == null) {
             return null;
         }
@@ -53,7 +49,6 @@ public class VueloService {
         return vueloDto;
     }
 
-
     //delete by id
     public Boolean deleteById(Long id) {
         if(id == null) {
@@ -61,5 +56,21 @@ public class VueloService {
         }
         vueloRepository.deleteById(id);
         return true;
+    }
+
+    //convert to dto
+    public VueloDTO convertToDTO(Vuelo vuelo) {
+        if(vuelo == null) {
+            return null;
+        }
+        return VueloMapper.INSTANCE.vueloToVueloDTO(vuelo);
+    }
+
+    //convert to entity
+    public Vuelo convertToEntity(VueloToSDTO vuelo) {
+        if(vuelo == null) {
+            return null;
+        }
+        return VueloMapper.INSTANCE.VueloToSDTOToVuelo(vuelo);
     }
 }

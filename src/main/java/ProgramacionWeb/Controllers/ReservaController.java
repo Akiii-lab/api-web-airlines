@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ProgramacionWeb.database.Services.ReservaService;
 import ProgramacionWeb.database.entities.dto.ReservaDTO;
+import ProgramacionWeb.database.entities.tosavedto.ReservaToSDTO;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -55,9 +56,10 @@ public class ReservaController {
         }
     }
     
-    @PostMapping("/registrar")
-    public ResponseEntity<HashMap<String, Object>> save(@RequestBody ReservaDTO reserva) {
+    @PostMapping()
+    public ResponseEntity<HashMap<String, Object>> save(@RequestBody ReservaToSDTO reserva) {
         HashMap<String, Object> response = new HashMap<>();
+        log.info("creating reserva"+ reserva);
         ReservaDTO reservaDTO = reservaService.save(reserva);
         if (reservaDTO == null) {
             response.put("Error", "No se pudo registrar la Reserva");

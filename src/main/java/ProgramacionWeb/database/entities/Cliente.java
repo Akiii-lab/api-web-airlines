@@ -33,10 +33,10 @@ public class Cliente {
     private String apellidos;
 
     @Column(nullable = false)
-    private int dni;
+    private Integer dni;
 
     @Column(nullable = false)
-    private int telefono;
+    private Integer telefono;
 
     @Column(nullable = false)
     private String correo;

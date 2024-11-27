@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ProgramacionWeb.database.entities.Aeropuerto;
 import ProgramacionWeb.database.entities.dto.AeropuertoDTO;
 import ProgramacionWeb.database.entities.mappers.AeropuertoMapper;
+import ProgramacionWeb.database.entities.tosavedto.AeropuerToSDTO;
 import ProgramacionWeb.database.repositories.AeropuertoRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,11 +40,11 @@ public class AeropuertoService{
     }
 
     //save
-    public AeropuertoDTO save(Aeropuerto aeropuerto) {
+    public AeropuertoDTO save(AeropuerToSDTO aeropuerto) {
         if(aeropuerto == null){
             return null;
         }
-        Aeropuerto savedAeropuerto = aeropuertoRepository.save(aeropuerto);
+        Aeropuerto savedAeropuerto = aeropuertoRepository.save(AeropuertoMapper.INSTANCE.aeropuertoToAeropuerto(aeropuerto));
         return AeropuertoMapper.INSTANCE.aeropuertoToAeropuertoDTO(savedAeropuerto);
     }
 
@@ -55,5 +56,15 @@ public class AeropuertoService{
         }
         aeropuertoRepository.deleteById(id);
         return true;
+    }
+
+    //conver to dto
+    public AeropuertoDTO convertToDTO(Aeropuerto aeropuerto) {
+        return AeropuertoMapper.INSTANCE.aeropuertoToAeropuertoDTO(aeropuerto);
+    }
+
+    //conver SaveDTO to entity
+    public Aeropuerto convertToEntity(AeropuerToSDTO aeropuertoDTO) {
+        return AeropuertoMapper.INSTANCE.aeropuertoToAeropuerto(aeropuertoDTO);
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import ProgramacionWeb.database.entities.Cliente;
 import ProgramacionWeb.database.entities.dto.ClienteDTO;
 import ProgramacionWeb.database.entities.mappers.ClienteMapper;
-import ProgramacionWeb.database.repositories.AerolineaRepository;
+import ProgramacionWeb.database.entities.tosavedto.ClienteUToSDTO;
 import ProgramacionWeb.database.repositories.ClienteRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,9 +21,6 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
-
-    @Autowired
-    private AerolineaRepository aerolineaRepository;
 
     //get by id
     public ClienteDTO findById(Long id) {
@@ -57,11 +54,11 @@ public class ClienteService {
     }
 
     //save
-    public ClienteDTO save(ClienteDTO cliente) {
+    public ClienteDTO save(ClienteUToSDTO cliente) {
         if(cliente == null) {
             return null;
         }
-        Cliente clienteSaved = clienteRepository.save(ClienteMapper.INSTANCE.clienteDTOToCliente(cliente, aerolineaRepository));
+        Cliente clienteSaved = clienteRepository.save(ClienteMapper.INSTANCE.clienteToCliente(cliente));
         return ClienteMapper.INSTANCE.clienteToClienteDTO(clienteSaved);
     }
 
@@ -74,4 +71,19 @@ public class ClienteService {
         return true;
     }
     
+    //convert to dto
+    public ClienteDTO convertToDTO(Cliente cliente) {
+        if(cliente == null) {
+            return null;
+        }
+        return ClienteMapper.INSTANCE.clienteToClienteDTO(cliente);
+    }
+
+    //convert to entity
+    public Cliente convertToEntity(ClienteUToSDTO clienteDTO) {
+        if(clienteDTO == null) {
+            return null;
+        }
+        return ClienteMapper.INSTANCE.clienteToCliente(clienteDTO);
+    }
 }

@@ -10,7 +10,7 @@ public class PasajeroDTO {
     private Long id_pasajero;
     private String nombres;
     private String apellidos;
-    private int telefono;
+    private Long telefono;
     private Set<Integer> asientos;
     private ReservaDTO reserva;
 }

@@ -1,35 +1,27 @@
-package ProgramacionWeb.database.entities.dto;
+package ProgramacionWeb.database.entities.tosavedto;
 
-import java.util.List;
 import lombok.Data;
 
 @Data
-public class ClienteDTO {
-
-    private Long id_cliente;
+public class ClienteUToSDTO {
     private String nombres;
     private String apellidos;
     private Integer dni;
     private Integer telefono;
     private String correo;
     private String direccion;
-    private String role;
     private String password;
-    private List<ReservaDTO> reservas;
 }
 
+//json example:
 /*
- * json example:
  * {
- *      "id_cliente": 1,
  *      "nombres": "John",
  *      "apellidos": "Doe",
  *      "dni": "12345678",
  *      "telefono": 123456789,
  *      "correo": "jdoe@doe",
  *      "direccion": "Calle 123",
- *      "role": "user",
  *      "password": "password"
- *      "reservas": []  
  * }
  */

@@ -35,7 +35,7 @@ public class Pasajero {
     private String apellidos;
 
     @Column(nullable = false)
-    private int telefono;
+    private Long telefono;
 
     @Column(nullable = false)
     private Set<Integer> asientos;

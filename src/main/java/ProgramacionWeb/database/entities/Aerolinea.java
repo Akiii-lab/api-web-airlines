@@ -31,7 +31,7 @@ public class Aerolinea {
     private String nombre;
 
     @Column(nullable = false)
-    private int codigo_arolinea;
+    private Integer codigo_arolinea;
 
     @Column(nullable = false)
     private String pais;

@@ -1,5 +1,6 @@
 package ProgramacionWeb.database.entities.dto;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -11,10 +12,9 @@ public class ReservaDTO {
     private Long id_reserva;
     private String fecha;
     private ClienteDTO cliente;
-    private int num_pasajeros;
-    private Set<PasajeroDTO> pasajeros;
+    private Integer num_pasajeros;
+    private Set<PasajeroDTO> pasajeros = new HashSet<>();
     private List<VueloDTO> vuelos;
-
 }
 /*
   * json example:

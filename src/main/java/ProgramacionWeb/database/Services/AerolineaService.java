@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ProgramacionWeb.database.entities.Aerolinea;
 import ProgramacionWeb.database.entities.dto.AerolineaDTO;
 import ProgramacionWeb.database.entities.mappers.AerolineaMapper;
+import ProgramacionWeb.database.entities.tosavedto.AerolineaToSDTO;
 import ProgramacionWeb.database.repositories.AerolineaRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,12 +41,12 @@ public class AerolineaService {
     }
 
     //save
-    public AerolineaDTO save(AerolineaDTO aerolinea) {
+    public AerolineaDTO save(AerolineaToSDTO aerolinea) {
         if(aerolinea == null){
             return null;
         }
 
-        Aerolinea savedAerolinea = aerolineaRepository.save(AerolineaMapper.INSTANCE.aerolineaDTOToAerolinea(aerolinea, aerolineaRepository));
+        Aerolinea savedAerolinea = aerolineaRepository.save(AerolineaMapper.INSTANCE.aerolineaToSDTOToAerolinea(aerolinea));
 
         return AerolineaMapper.INSTANCE.aerolineaToAerolineaDTO(savedAerolinea);
     }
@@ -59,6 +60,19 @@ public class AerolineaService {
         aerolineaRepository.deleteById(id);
         return true;
     }
-    
-    
+
+    //conver to dto
+    public AerolineaDTO convertToDTO(Aerolinea aerolinea) {
+        return AerolineaMapper.INSTANCE.aerolineaToAerolineaDTO(aerolinea);
+    }
+
+    //conver SaveDTO to entity
+    public Aerolinea convertToEntity(AerolineaToSDTO aerolineaDTO) {
+        return AerolineaMapper.INSTANCE.aerolineaToSDTOToAerolinea(aerolineaDTO);
+    }
+
+    //conver entity to DTO
+    public AerolineaDTO convertToSaveDTO(Aerolinea aerolinea) {
+        return AerolineaMapper.INSTANCE.aerolineaToAerolineaDTO(aerolinea);
+    }
 }

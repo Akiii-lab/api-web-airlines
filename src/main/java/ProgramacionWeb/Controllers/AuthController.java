@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ProgramacionWeb.database.Services.ClienteService;
 import ProgramacionWeb.database.entities.dto.ClienteDTO;
+import ProgramacionWeb.database.entities.tosavedto.ClienteUToSDTO;
 import ProgramacionWeb.security.jwt.JWTgeneretor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,7 +36,7 @@ public class AuthController {
     private JWTgeneretor tokengeneretor;
 
     @PostMapping("/cliente/registrar")
-    public ResponseEntity<HashMap<String, Object>> save(@RequestBody ClienteDTO clienteDTO) {
+    public ResponseEntity<HashMap<String, Object>> save(@RequestBody ClienteUToSDTO clienteDTO) {
         log.info("creating client");
         HashMap<String, Object> response = new HashMap<>();
         String password = passwordEncoder.encode(clienteDTO.getPassword());

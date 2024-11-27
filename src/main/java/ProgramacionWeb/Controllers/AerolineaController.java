@@ -1,6 +1,5 @@
 package ProgramacionWeb.Controllers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ProgramacionWeb.database.Services.AerolineaService;
 import ProgramacionWeb.database.entities.dto.AerolineaDTO;
+import ProgramacionWeb.database.entities.tosavedto.AerolineaToSDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -57,16 +57,13 @@ public class AerolineaController {
     }
 
     //save
-    @PostMapping("/registrar")
-    public ResponseEntity<HashMap<String, Object>> save(@RequestBody AerolineaDTO aerolineaDTO) {
+    @PostMapping()
+    public ResponseEntity<HashMap<String, Object>> save(@RequestBody AerolineaToSDTO aerolineaDTO) {
         HashMap <String, Object> response = new HashMap<>();
         if(aerolineaDTO == null) {
             response.put("Error", "No se pudo registrar la Aerolinea");
             return ResponseEntity.badRequest().build();
         }else{
-            if(aerolineaDTO.getVuelos() == null) {
-                aerolineaDTO.setVuelos(new ArrayList<>());
-            }
             AerolineaDTO aerolineadto = service.save(aerolineaDTO);
             response.put("Aerolinea", aerolineadto);
             return ResponseEntity.ok(response);

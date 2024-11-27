@@ -1,8 +1,11 @@
 package ProgramacionWeb.database.entities;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,24 +38,25 @@ public class Reserva {
     @Column(nullable = false)
     private String fecha;
 
-    @ManyToOne
-    @JoinColumn (name = "id_cliente")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn (name = "id_cliente" )
     private Cliente cliente;
 
     @Column(nullable = false)
-    private int num_pasajeros;
+    private Integer num_pasajeros;
 
-    @OneToMany
-    private Set<Pasajero> pasajeros;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @Builder.Default
+    private Set<Pasajero> pasajeros = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
         name = "rutas",
         joinColumns = @JoinColumn(name = "id_reserva"),
         inverseJoinColumns = @JoinColumn(name = "id_vuelo")
     )
-    
-    private List<Vuelo> vuelos;
+    @Builder.Default
+    private List<Vuelo> vuelos = new ArrayList<>();
 
     public void addVuelo(Vuelo vuelo) {
         this.vuelos.add(vuelo);

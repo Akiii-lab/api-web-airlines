@@ -1,10 +1,13 @@
 package ProgramacionWeb.database.entities;
 
 
+
 import java.sql.Date;
 import java.sql.Time;
+
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -47,23 +50,23 @@ public class Vuelo {
     private Time hora_salida;
 
     @Column(nullable = false)
-    private float precio;
+    private Float precio;
 
     @Column(nullable = false)
     private Time duracion;
 
     @Column(nullable = false)
-    private int capacidad;
+    private Integer capacidad;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER ,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "aerolinea")
     private Aerolinea aerolinea; 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "aeropuertoSalida")
     private Aeropuerto aeropuertoSalida; 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "aeropuertoLlegada")
     private Aeropuerto aeropuertoLlegada; 
 

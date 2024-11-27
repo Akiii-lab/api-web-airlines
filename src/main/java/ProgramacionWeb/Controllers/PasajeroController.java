@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ProgramacionWeb.database.Services.PasajeroService;
 import ProgramacionWeb.database.entities.dto.PasajeroDTO;
+import ProgramacionWeb.database.entities.tosavedto.PasajeroToSDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -55,8 +56,8 @@ public class PasajeroController {
         }
     }
 
-    @PostMapping("/registrar")
-    public ResponseEntity<HashMap<String, Object>> save(@RequestBody PasajeroDTO pasajero) {
+    @PostMapping()
+    public ResponseEntity<HashMap<String, Object>> save(@RequestBody PasajeroToSDTO pasajero) {
         HashMap<String, Object> response = new HashMap<>();
         PasajeroDTO pasajeroDTO = pasajeroService.save(pasajero);
         if (pasajeroDTO == null) {

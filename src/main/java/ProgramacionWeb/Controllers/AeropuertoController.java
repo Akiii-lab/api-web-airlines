@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ProgramacionWeb.database.Services.AeropuertoService;
 import ProgramacionWeb.database.entities.dto.AeropuertoDTO;
-import ProgramacionWeb.database.entities.mappers.AeropuertoMapper;
-import ProgramacionWeb.database.repositories.AerolineaRepository;
+import ProgramacionWeb.database.entities.tosavedto.AeropuerToSDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -27,9 +26,6 @@ public class AeropuertoController {
     @Autowired
     private AeropuertoService aeropuertoService;
 
-    @Autowired
-    private AerolineaRepository aerolineaRepository;
-    
     //get all
     @GetMapping()
     public ResponseEntity<HashMap<String, Object>> findAll() {
@@ -61,10 +57,10 @@ public class AeropuertoController {
     }
 
     //save
-    @PostMapping("/registrar")
-    public ResponseEntity<HashMap<String, Object>> save(@RequestBody AeropuertoDTO aeropuerto) {
+    @PostMapping()
+    public ResponseEntity<HashMap<String, Object>> save(@RequestBody AeropuerToSDTO aeropuerto) {
         HashMap <String, Object> response = new HashMap<>();
-        AeropuertoDTO aeropuertoDTO = aeropuertoService.save(AeropuertoMapper.INSTANCE.aeropuertoDTOToAeropuerto(aeropuerto, aerolineaRepository));
+        AeropuertoDTO aeropuertoDTO = aeropuertoService.save(aeropuerto);
         if(aeropuertoDTO == null) {
             response.put("Error", "No se pudo guardar el Aeropuerto");
             return ResponseEntity.badRequest().build();

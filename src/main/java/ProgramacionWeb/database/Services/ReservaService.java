@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import ProgramacionWeb.database.entities.Reserva;
 import ProgramacionWeb.database.entities.dto.ReservaDTO;
 import ProgramacionWeb.database.entities.mappers.ReservaMapper;
-import ProgramacionWeb.database.repositories.AerolineaRepository;
+import ProgramacionWeb.database.entities.tosavedto.ReservaToSDTO;
 import ProgramacionWeb.database.repositories.ReservaRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,9 +20,6 @@ public class ReservaService {
 
     @Autowired
     ReservaRepository reservaRepository;
-
-    @Autowired
-    private AerolineaRepository aerolineaRepository;
 
     // get by id
     public ReservaDTO findById(Long id) {
@@ -47,12 +44,12 @@ public class ReservaService {
     }
 
     // save
-    public ReservaDTO save(ReservaDTO reserva) {
+    public ReservaDTO save(ReservaToSDTO reserva) {
         if (reserva == null) {
             return null;
         }
         Reserva reservaSaved = reservaRepository
-                .save(ReservaMapper.INSTANCE.reservaDTOToReserva(reserva, aerolineaRepository));
+                .save(ReservaMapper.INSTANCE.reservaToReserva(reserva));
         return ReservaMapper.INSTANCE.reservaToReservaDTO(reservaSaved);
     }
 
@@ -73,5 +70,21 @@ public class ReservaService {
             reservasDTO.add(ReservaMapper.INSTANCE.reservaToReservaDTO(reserva));
         }
         return reservasDTO;
+    }
+
+    //convert to dto
+    public ReservaDTO convertToDTO(Reserva reserva) {
+        if (reserva == null) {
+            return null;
+        }
+        return ReservaMapper.INSTANCE.reservaToReservaDTO(reserva);
+    }
+
+    //convert to entity
+    public Reserva convertToEntity(ReservaToSDTO reserva) {
+        if (reserva == null) {
+            return null;
+        }
+        return ReservaMapper.INSTANCE.reservaToReserva(reserva);
     }
 }

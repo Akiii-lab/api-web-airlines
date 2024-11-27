@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ProgramacionWeb.database.Services.VueloService;
 import ProgramacionWeb.database.entities.dto.VueloDTO;
+import ProgramacionWeb.database.entities.tosavedto.VueloToSDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -51,8 +52,8 @@ public class VueloController {
         }
     }
 
-    @PostMapping("/registrar")
-    public ResponseEntity<HashMap<String, Object>> save(@RequestBody VueloDTO vuelo) {
+    @PostMapping()
+    public ResponseEntity<HashMap<String, Object>> save(@RequestBody VueloToSDTO vuelo) {
         HashMap<String, Object> response = new HashMap<>();
         VueloDTO vueloDTO = vueloService.save(vuelo);
         if (vueloDTO == null) {

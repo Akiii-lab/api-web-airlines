@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import ProgramacionWeb.database.entities.Pasajero;
 import ProgramacionWeb.database.entities.dto.PasajeroDTO;
 import ProgramacionWeb.database.entities.mappers.PasajeroMapper;
-import ProgramacionWeb.database.repositories.AerolineaRepository;
+import ProgramacionWeb.database.entities.tosavedto.PasajeroToSDTO;
 import ProgramacionWeb.database.repositories.PasajeroRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,9 +20,6 @@ public class PasajeroService {
 
     @Autowired
     private PasajeroRepository pasajeroRepository;
-
-    @Autowired
-    private AerolineaRepository aerolineaRepository;
 
     //get by id
     public PasajeroDTO findById(Long id) {
@@ -44,11 +41,11 @@ public class PasajeroService {
     }
 
     //save
-    public PasajeroDTO save(PasajeroDTO pasajero) {
+    public PasajeroDTO save(PasajeroToSDTO pasajero) {
         if(pasajero == null) {
             return null;
         }
-        Pasajero pasajeroSaved = pasajeroRepository.save(PasajeroMapper.INSTANCE.pasajeroDTOToPasajero(pasajero, aerolineaRepository));
+        Pasajero pasajeroSaved = pasajeroRepository.save(PasajeroMapper.INSTANCE.pasajeroDTOToPasajero(pasajero));
         return PasajeroMapper.INSTANCE.pasajeroToPasajeroDTO(pasajeroSaved);
     }
 
@@ -59,5 +56,21 @@ public class PasajeroService {
         }
         pasajeroRepository.deleteById(id);
         return true;
+    }
+
+    //convert to dto
+    public PasajeroDTO convertToDTO(Pasajero pasajero) {
+        if(pasajero == null) {
+            return null;
+        }
+        return PasajeroMapper.INSTANCE.pasajeroToPasajeroDTO(pasajero);
+    }
+
+    //convert to entity
+    public Pasajero convertToEntity(PasajeroToSDTO pasajero) {
+        if(pasajero == null) {
+            return null;
+        }
+        return PasajeroMapper.INSTANCE.pasajeroDTOToPasajero(pasajero);
     }
 }
